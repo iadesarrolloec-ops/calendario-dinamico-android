@@ -19,6 +19,8 @@ jobs:
           ZIP=$(find . -maxdepth 1 -type f -name "*.zip" | head -n 1)
           echo "ZIP encontrado: $ZIP"
           unzip -q "$ZIP" -d build-src
+          echo "Proyecto descomprimido:"
+          find build-src -maxdepth 2 -type f | head -50
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
@@ -34,6 +36,10 @@ jobs:
       - name: Instalar dependencias
         working-directory: build-src/calendario-dinamico
         run: npm install
+
+      - name: Instalar TypeScript
+        working-directory: build-src/calendario-dinamico
+        run: npm install -D typescript
 
       - name: Sincronizar Capacitor
         working-directory: build-src/calendario-dinamico
